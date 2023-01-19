@@ -1,6 +1,6 @@
 [![Build](https://github.com/zdelrosario/data-science-curriculum/actions/workflows/build.yml/badge.svg)](https://github.com/zdelrosario/data-science-curriculum/actions/workflows/build.yml) [![Build book and deploy](https://github.com/zdelrosario/data-science-curriculum/actions/workflows/book.yml/badge.svg)](https://github.com/zdelrosario/data-science-curriculum/actions/workflows/book.yml) [![status](https://jose.theoj.org/papers/f610a5debae8f7f9f08edd1e2abda774/status.svg)](https://jose.theoj.org/papers/f610a5debae8f7f9f08edd1e2abda774)
 
-# data-science-curriculum
+# data-science-curriculum - Jacob Smilg, Spring 2023
 
 This is a curriculum of **open-source** data science exercises, intended to take a student from zero coding experience to basic data science literacy. These exercises are heavily inspired by the (discontinued) [Data Challenge Lab](https://dcl-docs.stanford.edu/home/) at Stanford University and rely on the [Tidyverse](https://www.tidyverse.org/).
 
