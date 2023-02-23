@@ -1,7 +1,7 @@
 ---
 title: "Michelson Speed-of-light Measurements"
 author: "Jacob Smilg"
-date: 2023-02-08
+date: 2023-02-08 (Revised 2023-02-23)
 output:
   github_document:
     toc: true
@@ -243,8 +243,8 @@ df_q2 %>%
 
     -   The real data has more means outside of the error lines in the earlier data, while the simulated data has means outside the error lines later in the data.
 
-    -   The real data has more outliers.
-        This makes sense to me, since I'd imagine including outliers in a model like this might just make a worse model (although I know nothing about models like this; that's just a guess).
+    -   Both datasets have similar amounts of points that lie outside the error lines, but the real data has a few that are much further outside of the error lines than the furthest ones in the simulated data.
+        This makes sense to me, since I'd imagine including such points in a model like this might just make a worse model (although I know nothing about models like this; that's just a guess).
 
 ### **q5** You have access to a few other variables. Construct a few visualizations of `VelocityVacuum` against these other factors. Are there other patterns in the data that might help explain the difference between Michelson's estimate and `LIGHTSPEED_VACUUM`?
 
@@ -270,7 +270,8 @@ df_q2 %>%
 **Observations**:
 
 -   There doesn't appear to be much of any correlation between VelocityVacuum and Temperature.
--   The means from q1 showed this earlier, but it looks like measurements with lower distinctness generally have lower velocities.
+-   The means from q1 showed this earlier, but it looks like there may be a weak relationship between distinctness and velocity, though it is not clear.
+-   It does not appear that there are any factors in the data that explain the difference between Michelson's estimate and `LIGHTSPEED_VACUUM`.
 
 ## Bibliography
 
