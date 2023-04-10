@@ -1,7 +1,7 @@
 Estimating Pi With a Shotgun
 ================
 Jacob Smilg
-2023-03-24
+2023-03-24 (Revised 2023-04-10)
 
 - [Grading Rubric](#grading-rubric)
   - [Individual](#individual)
@@ -240,9 +240,8 @@ hi_quantile
   - 0.95
 - Was your sample size $n$ large enough? Why do you say that?
   - I think my sample size was large enough since my confidence interval
-    includes $\pi$, and the value of $\pi$ I estimated is accurate to
-    the true value up to the hundredths place. When I rerun the code,
-    this is true almost every time.
+    is pretty narrow (~.02 range) and includes $\pi$. When I rerun the
+    code, this is true almost every time.
 
 # References
 

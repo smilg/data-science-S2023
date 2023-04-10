@@ -1,7 +1,7 @@
 ---
 title: "Estimating Pi With a Shotgun"
 author: "Jacob Smilg"
-date: 2023-03-24
+date: 2023-03-24 (Revised 2023-04-10)
 output:
   github_document:
     toc: true
@@ -172,7 +172,7 @@ hi_quantile
 -   What confidence level did you choose?
     -   0.95
 -   Was your sample size $n$ large enough? Why do you say that?
-    -   I think my sample size was large enough since my confidence interval includes $\pi$, and the value of $\pi$ I estimated is accurate to the true value up to the hundredths place. When I rerun the code, this is true almost every time.
+    -   I think my sample size was large enough since my confidence interval is pretty narrow (~.02 range) and includes $\pi$. When I rerun the code, this is true almost every time.
 
 # References
 
