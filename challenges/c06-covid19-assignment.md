@@ -1,7 +1,7 @@
 COVID-19
 ================
 Jacob Smilg
-2023-03-19
+2023-03-19 (Revised 2023-04-10)
 
 - [Grading Rubric](#grading-rubric)
   - [Individual](#individual)
@@ -168,16 +168,17 @@ To check your results, this is Table `B01003`.
 
 ``` r
 ## TASK: Load the census bureau data with the following tibble name.
-df_pop <- read_csv(
-  "./data/ACSDT5Y2018.B01003-Data.csv",
-  skip = 2,
-  col_names = c(
-    "id",
-    "Geographic Area Name",
-    "Estimate!!Total",
-    "Annotation of Estimate!!Total",
-    "Margin of Error!!Total",
-    "Annotation of Margin of Error!!Total"
+df_pop <-
+  read_csv(
+    "./data/ACSDT5Y2018.B01003-Data.csv",
+    skip = 2,
+    col_names = c(
+      "id",
+      "Geographic Area Name",
+      "Estimate!!Total",
+      "Annotation of Estimate!!Total",
+      "Margin of Error!!Total",
+      "Annotation of Margin of Error!!Total"
     )
   ) %>% 
   select(-c(starts_with("Annotation"), "X7"))
