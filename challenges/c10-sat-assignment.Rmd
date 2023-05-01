@@ -1,7 +1,7 @@
 ---
 title: "SAT and College Grades"
 author: "Jacob Smilg"
-date: 2023-04-19
+date: 2023-04-19 (Revised 2023-05-01)
 output:
   github_document:
     toc: true
@@ -39,7 +39,7 @@ The following rubrics define how you will be graded, both on an individual and t
 <!-- ------------------------- -->
 
 | Category    | Needs Improvement                                                                                                | Satisfactory                                                                                                               |
-|-------------------|----------------------------|-------------------------|
+|--------------|----------------------------|-------------------------------|
 | Effort      | Some task **q**'s left unattempted                                                                               | All task **q**'s attempted                                                                                                 |
 | Observed    | Did not document observations, or observations incorrect                                                         | Documented correct observations based on analysis                                                                          |
 | Supported   | Some observations not clearly supported by analysis                                                              | All observations clearly supported by analysis (table, graph, etc.)                                                        |
@@ -134,6 +134,7 @@ df_composite %>%
     -   `univ_GPA`{style="caret-color: white;"} and `both_SAT`{style="caret-color: white;"} exhibit a positive relationship.
 -   What relationship do `univ_GPA` and `high_GPA` exhibit?
     -   `univ_GPA` and `high_GPA` exhibit a positive relationship.
+-   Both trends have a small cluster towards the lower-left corners (low GPA, low SAT score) and a larger cluster closer to the upper-right corners. The small cluster for `univ_GPA`{style="caret-color: white;"} vs. `both_SAT`{style="caret-color: white;"} appears to be a bit less spread out than the small cluster in `univ_GPA`{style="caret-color: white;"} vs. `high_GPA`{style="caret-color: white;"}. The opposite is true for the large cluster.
 
 ### Hypothesis Testing with a Correlation Coefficient
 
@@ -169,11 +170,11 @@ df_composite %>%
 **Observations**:
 
 -   To what extent does `both_SAT` look like a normal distribution?
-    -   It looks like the upper portion of a normal distribution centered around 1100 or so.
+    -   It looks like the upper portion of a normal distribution centered around 1100 or so - there are a few spikes that make it look less normal, though.
 -   To what extent does `high_GPA` look like a normal distribution?
-    -   It looks fairly normal, centered around 3.4 or so.
+    -   It doesn't look much like a normal distribution.
 -   To what extent does `univ_GPA` look like a normal distribution?
-    -   Similar to `high_GPA`, it looks fairly normal centered around 3.5, but it has some people that lie outside where the distribution appears to be.
+    -   It doesn't look much like a normal distribution.
 
 Keep in mind your findings as you complete q4.
 
@@ -204,7 +205,17 @@ df_composite %>%
 
 Finally, let's use the bootstrap to perform the same test using *different* assumptions.
 
-### **q5** Use the bootstrap to approximate a confidence interval for `corr[high_GPA, univ_GPA]`. Compare your results---both the estimate and confidence interval---to your results from q4.
+### **q5** Use the bootstrap to approximate a confidence interval
+
+Use the bootstrap to approximate a confidence interval for `cor[high_GPA, univ_GPA]`.
+Compare your results---both the estimate and confidence interval---to your results from q4.
+
+*Hint 1*.
+The `cor(x, y)` function computes the correlation between two variables `x` and `y`.
+You may find this more helpful than the `cor.test()` function we used above.
+
+*Hint 2*.
+You'll find that the documentation for `int_pctl` has some **really** useful examples for this task!
 
 ```{r q5-task}
 set.seed(sum(utf8ToInt("😢😔😟☹️😥😢😭😖😞😓🥹")))
@@ -248,7 +259,7 @@ df_composite %>%
 -   How does your estimate from q5 compare with your estimate from q4?
     -   My q4 estimate is 0.7795631, and my q5 estimate is 0.7795262. They are within one ten-thousandth of each other.
 -   How does your CI from q5 compare with your CI from q4?
-    -   My q4 CI is [0.6911690	0.8449761] and my q5 CI is [0.6916051	0.8447514]. They are also almost the same.
+    -   My q4 CI is [0.6911690 0.8449761] and my q5 CI is [0.6916051 0.8447514]. They are also almost the same.
 
 *Aside*: When you use two different approximations to compute the same quantity and get similar results, that's an *encouraging sign*.
 Such an outcome lends a bit more credibility to the results.
@@ -319,14 +330,19 @@ fit_basic %>%
     conf.int = TRUE,
     conf.level = 0.99
   )
+
+print("basic MSE:")
+mse(fit_basic, df_validate)
+print("basic r-squared:")
+rsquare(fit_basic, df_validate)
 ```
 
 **Observations**:
 
 -   What is the confidence interval on the coefficient of `both_SAT`? Is this coefficient significantly different from zero?
-    -   [0.001715376 0.003415381]. It is not significantly different from zero.
+    -   [0.001715376 0.003415381]. It is significantly different from zero.
 -   By itself, how well does `both_SAT` predict `univ_GPA`?
-    -   Poorly.
+    -   Not very well - the r-squared is 0.5383881, which isn't very high, but does suggest that it can predict `univ_GPA` with low accuracy.
 
 Remember from `e-model03-interp-warnings` that there are challenges with interpreting regression coefficients!
 Let's investigate that idea further.
@@ -349,11 +365,6 @@ fit_bofa %>%
     conf.level = 0.99
   )
 
-
-print("basic MSE:")
-mse(fit_basic, df_validate)
-print("basic r-squared:")
-rsquare(fit_basic, df_validate)
 print("bofa MSE:")
 mse(fit_bofa, df_validate)
 print("bofa r-squared:")
@@ -365,7 +376,7 @@ rsquare(fit_bofa, df_validate)
 -   How well do these models perform, compared to the one you built in q6?
     -   This one is better than the one from q6.
 -   What is the confidence interval on the coefficient of `both_SAT` when including `high_GPA` as a predictor?? Is this coefficient significantly different from zero?
-    -   [-0.0006740696	0.001741962]. It's even closer to zero than before.
+    -   [-0.0006740696 0.001741962]. It's even closer to zero than before.
 -   How do the hypothesis test results compare with the results in q6?
     -   The results agree that `high_GPA` is a better predictor of `univ_GPA`, but q6 seems to contradict the hypothesis tests by showing that `both_SAT` is not a good predictor of `univ_GPA`.
 

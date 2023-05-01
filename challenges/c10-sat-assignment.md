@@ -1,7 +1,7 @@
 SAT and College Grades
 ================
 Jacob Smilg
-2023-04-19
+2023-04-19 (Revised 2023-05-01)
 
 - [Grading Rubric](#grading-rubric)
   - [Individual](#individual)
@@ -27,10 +27,8 @@ Jacob Smilg
       intervals for `corr[high_GPA, univ_GPA]` and
       `corr[both_SAT, univ_GPA]`. Answer the questions
       below.](#q4-use-the-function-cortest-to-construct-confidence-intervals-for-corrhigh_gpa-univ_gpa-and-corrboth_sat-univ_gpa-answer-the-questions-below)
-    - [**q5** Use the bootstrap to approximate a confidence interval for
-      `corr[high_GPA, univ_GPA]`. Compare your results—both the estimate
-      and confidence interval—to your results from
-      q4.](#q5-use-the-bootstrap-to-approximate-a-confidence-interval-for-corrhigh_gpa-univ_gpa-compare-your-resultsboth-the-estimate-and-confidence-intervalto-your-results-from-q4)
+    - [**q5** Use the bootstrap to approximate a confidence
+      interval](#q5-use-the-bootstrap-to-approximate-a-confidence-interval)
   - [View 2: Modeling](#view-2-modeling)
     - [Hypothesis Testing with a
       Model](#hypothesis-testing-with-a-model)
@@ -253,6 +251,11 @@ df_composite %>%
   - `univ_GPA` and `both_SAT` exhibit a positive relationship.
 - What relationship do `univ_GPA` and `high_GPA` exhibit?
   - `univ_GPA` and `high_GPA` exhibit a positive relationship.
+- Both trends have a small cluster towards the lower-left corners (low
+  GPA, low SAT score) and a larger cluster closer to the upper-right
+  corners. The small cluster for `univ_GPA` vs. `both_SAT` appears to be
+  a bit less spread out than the small cluster in `univ_GPA`
+  vs. `high_GPA`. The opposite is true for the large cluster.
 
 ### Hypothesis Testing with a Correlation Coefficient
 
@@ -306,13 +309,12 @@ df_composite %>%
 
 - To what extent does `both_SAT` look like a normal distribution?
   - It looks like the upper portion of a normal distribution centered
-    around 1100 or so.
+    around 1100 or so - there are a few spikes that make it look less
+    normal, though.
 - To what extent does `high_GPA` look like a normal distribution?
-  - It looks fairly normal, centered around 3.4 or so.
+  - It doesn’t look much like a normal distribution.
 - To what extent does `univ_GPA` look like a normal distribution?
-  - Similar to `high_GPA`, it looks fairly normal centered around 3.5,
-    but it has some people that lie outside where the distribution
-    appears to be.
+  - It doesn’t look much like a normal distribution.
 
 Keep in mind your findings as you complete q4.
 
@@ -385,7 +387,18 @@ df_composite %>%
 Finally, let’s use the bootstrap to perform the same test using
 *different* assumptions.
 
-### **q5** Use the bootstrap to approximate a confidence interval for `corr[high_GPA, univ_GPA]`. Compare your results—both the estimate and confidence interval—to your results from q4.
+### **q5** Use the bootstrap to approximate a confidence interval
+
+Use the bootstrap to approximate a confidence interval for
+`cor[high_GPA, univ_GPA]`. Compare your results—both the estimate and
+confidence interval—to your results from q4.
+
+*Hint 1*. The `cor(x, y)` function computes the correlation between two
+variables `x` and `y`. You may find this more helpful than the
+`cor.test()` function we used above.
+
+*Hint 2*. You’ll find that the documentation for `int_pctl` has some
+**really** useful examples for this task!
 
 ``` r
 set.seed(sum(utf8ToInt("😢😔😟☹️😥😢😭😖😞😓🥹")))
@@ -520,14 +533,39 @@ fit_basic %>%
     ## 1 (Intercept)  0.0260   0.396       0.0655 9.48e- 1 -1.02      1.07   
     ## 2 both_SAT     0.00257  0.000322    7.97   1.08e-11  0.00172   0.00342
 
+``` r
+print("basic MSE:")
+```
+
+    ## [1] "basic MSE:"
+
+``` r
+mse(fit_basic, df_validate)
+```
+
+    ## [1] 0.09188292
+
+``` r
+print("basic r-squared:")
+```
+
+    ## [1] "basic r-squared:"
+
+``` r
+rsquare(fit_basic, df_validate)
+```
+
+    ## [1] 0.5383881
+
 **Observations**:
 
 - What is the confidence interval on the coefficient of `both_SAT`? Is
   this coefficient significantly different from zero?
-  - \[0.001715376 0.003415381\]. It is not significantly different from
+  - \[0.001715376 0.003415381\]. It is significantly different from
     zero.
 - By itself, how well does `both_SAT` predict `univ_GPA`?
-  - Poorly.
+  - Not very well - the r-squared is 0.5383881, which isn’t very high,
+    but does suggest that it can predict `univ_GPA` with low accuracy.
 
 Remember from `e-model03-interp-warnings` that there are challenges with
 interpreting regression coefficients! Let’s investigate that idea
@@ -558,30 +596,6 @@ fit_bofa %>%
     ## 1 (Intercept) 0.758     0.362         2.09 0.0397      -0.199      1.71   
     ## 2 both_SAT    0.000534  0.000457      1.17 0.247       -0.000674   0.00174
     ## 3 high_GPA    0.570     0.103         5.55 0.000000396  0.299      0.842
-
-``` r
-print("basic MSE:")
-```
-
-    ## [1] "basic MSE:"
-
-``` r
-mse(fit_basic, df_validate)
-```
-
-    ## [1] 0.09188292
-
-``` r
-print("basic r-squared:")
-```
-
-    ## [1] "basic r-squared:"
-
-``` r
-rsquare(fit_basic, df_validate)
-```
-
-    ## [1] 0.5383881
 
 ``` r
 print("bofa MSE:")
